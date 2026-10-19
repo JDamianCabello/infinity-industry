@@ -13,6 +13,7 @@
     IE.Render.cam.z = 1.1;
     if (S.victory) document.getElementById('victory').classList.remove('show');
   };
+  M.state = () => S;
   M.newGame = function () {
     const seed = (Math.random() * 1e9) | 0;
     M.setState(IE.newState(seed));

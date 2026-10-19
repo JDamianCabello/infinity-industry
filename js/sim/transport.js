@@ -357,7 +357,7 @@
               const src = stores.find(s => s.inv[k] > 0);
               if (!src) continue;
               const rb = idle.pop();
-              Object.assign(rb, { st: 'src', src: src.id, dst: e.id, item: k, n: r.in[k] * 2, carry: 0 });
+              Object.assign(rb, { st: 'src', src: src.id, dst: e.id, item: k, n: Math.max(r.in[k] * 3, 4) - (e.inv[k] || 0), carry: 0 });
               busy.add(e.id + ':' + k);
               if (!idle.length) break;
             }
@@ -365,7 +365,7 @@
           // Retirar producción
           if ((kind === 'machine' || kind === 'miner') && idle.length) {
             for (const k in e.out) {
-              if (e.out[k] < 6 || busy.has('o' + e.id + ':' + k)) continue;
+              if (e.out[k] < 4 || busy.has('o' + e.id + ':' + k)) continue;
               const dst = stores.find(s => s.inv[k] > 0 && IE.sumInv(s.inv) < IE.tierOf(s).cap) || stores.find(s => IE.sumInv(s.inv) < IE.tierOf(s).cap);
               if (!dst) continue;
               const rb = idle.pop();

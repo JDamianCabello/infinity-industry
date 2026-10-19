@@ -616,6 +616,12 @@
       case 'exportCode': { const code = IE.exportCode(S); const ta = $('codebox'); if (ta) { ta.value = code; ta.select(); } try { navigator.clipboard.writeText(code); toast('Código copiado al portapapeles', 'good'); } catch (err) { toast('Código generado: cópialo del cuadro'); } } break;
       case 'importCode': { const ta = $('codebox'); if (ta && ta.value.trim()) importText(ta.value); } break;
       case 'importFile': { const inp = $('filein'); inp.onchange = () => { const f = inp.files[0]; if (!f) return; const rd = new FileReader(); rd.onload = () => importText(rd.result); rd.readAsText(f); }; inp.click(); } break;
+      case 'demoSave':
+        if (!confirm('¿Cargar la partida avanzada de ejemplo? Se sustituirá la partida actual (expórtala antes si quieres conservarla).')) break;
+        fetch('partidas/partida-avanzada.json').then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+          .then(txt => { importText(txt); IE.saveLocal(IE.Main.state()); })
+          .catch(err => toast('No se pudo descargar la partida de ejemplo (' + err.message + '). Impórtala como archivo desde partidas/partida-avanzada.json', 'bad', 5000));
+        break;
       case 'newgame': if (confirm('¿Empezar una partida nueva? Se perderá la actual si no la has exportado.')) { IE.deleteLocal(); IE.Main.newGame(); UI.closeModal(); } break;
       case 'speed': if (+d.s === 0) S.paused = !S.paused; else { S.speed = +d.s; S.paused = false; } UI.renderModal(); break;
       case 'goto': UI.closeModal(); IE.Render.centerOn(+d.x, +d.y); break;
@@ -785,6 +791,7 @@
     return `<div class="card"><b>Partida</b><div class="btns"><button data-a="save">💾 Guardar ahora</button><button data-a="exportFile">⬇ Exportar archivo JSON</button><button data-a="importFile">⬆ Importar archivo</button></div>
       <textarea id="codebox" placeholder="Pega aquí un código de partida para importarlo"></textarea><div class="btns"><button data-a="exportCode">Generar y copiar código</button><button data-a="importCode">Importar código</button></div>
       <small class="dim">Autoguardado cada 30 s en este navegador. Versión de guardado ${IE.SAVE_VERSION}.</small></div>
+      <div class="card"><b>Partida de ejemplo</b><p class="dim">Acto III, Era 4: fábrica en marcha, red eléctrica, tren, camiones, robots y laboratorios. Sustituye la partida actual.</p><div class="btns"><button data-a="demoSave">🎮 Cargar partida avanzada</button></div></div>
       <div class="card"><b>Velocidad de simulación</b><div class="btns">${[0, 1, 2, 4].map(s => `<button data-a="speed" data-s="${s}" class="${(s === 0 ? S.paused : (!S.paused && S.speed === s)) ? 'on' : ''}">${s === 0 ? '⏸ Pausa' : s + 'x'}</button>`).join('')}</div></div>
       <div class="card"><div class="btns"><button onclick="IE.UI.openModal('help')">❓ Ayuda</button><button onclick="IE.UI.openModal('logs')">📜 Registros</button><button onclick="IE.UI.openModal('credits')">🎨 Créditos</button></div></div>
       <div class="card"><button data-a="newgame" class="danger">Nueva partida</button></div>`;

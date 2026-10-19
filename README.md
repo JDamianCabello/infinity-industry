@@ -30,6 +30,16 @@ con `file://`, aunque así no se instala como aplicación).
 La partida se guarda sola cada 30 s y al salir. Desde ☰ puedes guardar a mano, exportar o
 importar la partida como archivo JSON o como código de texto.
 
+## Partida avanzada de ejemplo
+
+`partidas/partida-avanzada.json` es una partida del Acto III (Era 4) con unas 220 construcciones:
+tres cadenas de producción hacia el Núcleo (placas, cable y acero), una central de vapor V3
+alimentada por cinta y brazos, más solar, eólica y baterías; laboratorios investigando, un tren
+diésel que cruza el río, dos camiones y un enjambre de robots logísticos.
+
+Cárgala desde ☰ → «Cargar partida avanzada», o descárgala e impórtala con ☰ → «Importar archivo».
+Se genera con la simulación real: `node tools/make_demo_save.js`.
+
 ## Controles
 
 | Acción | Táctil | Teclado / ratón |
