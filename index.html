@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#11161d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Industria Eterna</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="game">
+  <canvas id="cv"></canvas>
+
+  <div id="top">
+    <div id="res" data-top="inv"></div>
+    <div id="pow" data-top="stats"></div>
+    <div id="clock" data-top="research"></div>
+    <button id="btnPause" data-top="pause">⏸</button>
+    <button id="btnSpeed" data-top="speed">1x</button>
+    <button data-top="menu">☰</button>
+  </div>
+  <div id="mission"></div>
+  <div id="alerts"></div>
+
+  <div id="side">
+    <button data-side="research" title="Investigación">🔬</button>
+    <button data-side="missions" title="Misiones">📋</button>
+    <button data-side="stats" title="Estadísticas">📊</button>
+    <hr>
+    <button data-side="power" title="Redes eléctricas">⚡</button>
+    <button data-side="logistics" title="Transporte">🚚</button>
+    <button data-side="production" title="Producción">🏭</button>
+    <button data-side="problems" title="Problemas">⚠</button>
+  </div>
+
+  <div id="info"></div>
+
+  <div id="bottom">
+    <div id="tools">
+      <button data-tool="select">👆<span>Elegir</span></button>
+      <button data-tool="hand">✋<span>Mano</span></button>
+      <button data-tool="demolish">🗑<span>Retirar</span></button>
+      <button data-tool="rotate">↻<span>Girar</span></button>
+      <button data-tool="cancel">✕<span>Cancelar</span></button>
+    </div>
+    <div id="cats"></div>
+    <div id="items"></div>
+  </div>
+
+  <div id="dialog"></div>
+  <div id="modal"><div id="modalbox"></div></div>
+  <input type="file" id="filein" accept=".json,application/json" style="display:none">
+
+  <div id="cine"><canvas id="cinecv"></canvas></div>
+  <div id="victory"></div>
+
+  <div id="start">
+    <div class="sbox">
+      <h1>INDUSTRIA<br><span>ETERNA</span></h1>
+      <p>Un planeta abandonado. Una IA que despierta. Una civilización industrial por reconstruir.</p>
+      <button id="btnContinue">Continuar partida</button>
+      <button id="btnNew">Nueva partida</button>
+      <small>Arrastra para mover · pellizca para el zoom · todo se guarda automáticamente</small>
+    </div>
+  </div>
+  <div id="loading">Cargando sprites…</div>
+</div>
+
+<script src="js/core.js"></script>
+<script src="js/atlas_data.js"></script>
+<script src="js/data/items.js"></script>
+<script src="js/data/buildings.js"></script>
+<script src="js/data/tech.js"></script>
+<script src="js/data/story.js"></script>
+<script src="js/world.js"></script>
+<script src="js/sim/state.js"></script>
+<script src="js/sim/factory.js"></script>
+<script src="js/sim/power.js"></script>
+<script src="js/sim/transport.js"></script>
+<script src="js/sim/progress.js"></script>
+<script src="js/save.js"></script>
+<script src="js/assets.js"></script>
+<script src="js/render.js"></script>
+<script src="js/input.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+<script>
+  IE.Main.boot();
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
