@@ -187,6 +187,7 @@ for (let i = 0; i < 30 / IE.TICK; i++) IE.step(S, IE.TICK);
 console.log('Laboratorios:', [...S.ents.values()].filter(e => e.type === 'lab').map(e => e.status).join(', '), '· progreso', S.research.prog.toFixed(1));
 console.log('Misión', IE.currentMission(S).title, '· entidades', S.ents.size);
 
+S.time = 11520; // por la mañana
 const outDir = path.join(ROOT, 'partidas');
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, 'partida-avanzada.json'), JSON.stringify(IE.serialize(S)));
